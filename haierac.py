@@ -1,6 +1,7 @@
-from haierlib.types import *
-from haierlib.parsers import *
 import socket
+
+from haierlib.parsers import Parser
+
 
 class HaierAC:
     def __init__(self, ip, mac, port = 56800, timeout = 500) -> None:
@@ -17,7 +18,7 @@ class HaierAC:
             recv_data = self._sock.recv(1000)
             if recv_data:
                 print("-- Has Data --")
-                print(parse_resp(recv_data))
+                print(Parser.parse_raw(recv_data))
 
     # TODO complete socket functions
 

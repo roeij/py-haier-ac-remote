@@ -1,4 +1,6 @@
+from dataclasses import dataclass
 from enum import Enum
+
 
 class Limits(Enum):
     OFF = 0
@@ -17,15 +19,16 @@ class Mode(Enum):
     FAN = 3
     DRY = 4
 
+
+@dataclass
 class State:
-    def __init__(self) -> None:
-        self._current_temp = 21
-        self._target_temp = 21
-        self._fan_speed = FanSpeed.MIN
-        self._mode = Mode.FAN
-        self._health = False
-        self._limits = Limits.OFF
-        self._power = False
+    current_temp: int = 21
+    target_temp: int = 21
+    fan_speed: FanSpeed = FanSpeed.MIN
+    mode: Mode = Mode.FAN
+    health: bool = False
+    limits: Limits = Limits.OFF
+    power: bool = False
 
     def __str__(self) -> str:
         return """Haier AC State:
@@ -36,15 +39,11 @@ class State:
         Mode: {}
         Health: {}
         Limits: {}""".format(
-          self._power, self._current_temp, self._target_temp,
-          self._fan_speed, self._mode, self._health, self._limits
+            self.power,
+            self.current_temp,
+            self.target_temp,
+            self.fan_speed,
+            self.mode,
+            self.health,
+            self.limits,
         )
-
-    def update(self, current_temp, target_temp, fan_speed, mode, health, limits, power):
-        self._current_temp = current_temp
-        self._target_temp = target_temp
-        self._fan_speed = fan_speed
-        self._mode = mode
-        self._health = health
-        self._limits = limits
-        self._power = power
